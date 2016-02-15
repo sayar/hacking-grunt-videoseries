@@ -24,8 +24,14 @@ module.exports = function(grunt) {
     // Copy Task Configuration
     copy: {
       build: {
-        src: ['<%= config.app %>/**'],
-        dest: '<%= config.build %>/'
+        expand: true,
+        dot: true,
+        cwd: '<%= config.app %>',
+        dest: '<%= config.build %>',
+        src: [
+          '{,*/}*.html',
+          '{,*/}*.js'
+        ]
       }
     }, 
     // Clean Task Configuration
@@ -38,10 +44,25 @@ module.exports = function(grunt) {
           '<%= config.app %>/styles/**/*.scss',   // .scss support...
         ]
       }
+    },
+    // Compile SASS
+    sass: {
+      options: {
+        sourceMap: true
+      },
+      build: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.app %>/styles',
+          src: ['*.{scss,sass}'],
+          dest: '<%= config.build %>/styles',
+          ext: '.css'
+        }]
+      }
     }
   });
   
   // Register Tasks
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'wiredep', 'copy']);
+  grunt.registerTask('default', ['clean', 'wiredep', 'sass', 'copy']);
 };
