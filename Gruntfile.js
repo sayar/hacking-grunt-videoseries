@@ -1,7 +1,9 @@
 module.exports = function(grunt) {
   // Time various grunt tasks.
   require('time-grunt')(grunt);
-  
+  // Load grunt tasks just-in-time.
+  require('jit-grunt')(grunt);
+
   /* 
    * Project configuration.
    */
@@ -18,12 +20,6 @@ module.exports = function(grunt) {
     // Clean Task Configuration
     clean: ['build']
   });
-
-  /* 
-   * Load all the grunt plugins
-   */
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-clean');
   
   // Register Tasks
   // Default task(s).
