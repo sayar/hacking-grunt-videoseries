@@ -1,4 +1,7 @@
 module.exports = function(grunt) {
+  // Time various grunt tasks.
+  require('time-grunt')(grunt);
+  
   /* 
    * Project configuration.
    */
