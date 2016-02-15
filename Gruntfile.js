@@ -18,10 +18,19 @@ module.exports = function(grunt) {
       }
     }, 
     // Clean Task Configuration
-    clean: ['build']
+    clean: ['build'],
+    // Wire Dependencies
+    wiredep: {
+      build: {
+        src: [
+          'build/**/*.html',   // .html support...
+          'build/styles/**/*.scss',   // .scss support...
+        ]
+      }
+    }
   });
   
   // Register Tasks
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'copy']);
+  grunt.registerTask('default', ['clean', 'copy', 'wiredep']);
 };
