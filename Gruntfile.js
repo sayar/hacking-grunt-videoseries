@@ -11,15 +11,18 @@ module.exports = function(grunt) {
         src: ['app/**'],
         dest: 'build/'
       }
-    }
+    }, 
+    // Clean Task Configuration
+    clean: ['build']
   });
 
   /* 
    * Load all the grunt plugins
    */
   grunt.loadNpmTasks('grunt-contrib-copy');
-
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  
   // Register Tasks
   // Default task(s).
-  grunt.registerTask('default', ['copy']);
+  grunt.registerTask('default', ['clean', 'copy']);
 };
