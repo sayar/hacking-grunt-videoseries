@@ -7,14 +7,25 @@ module.exports = function(grunt) {
   /* 
    * Project configuration.
    */
+  
+  // Configurable paths
+  var config = {
+    app: 'app',
+    build: 'build' // release path - final endpoint
+  };
+  
   grunt.initConfig({
     // Setup basic project metadata
     pkg: grunt.file.readJSON('package.json'),
+    
+    // Add configuration paths
+    config: config,
+    
     // Copy Task Configuration
     copy: {
       build: {
-        src: ['app/**'],
-        dest: 'build/'
+        src: ['<%= config.app %>/**'],
+        dest: '<%= config.build %>/'
       }
     }, 
     // Clean Task Configuration
@@ -23,8 +34,8 @@ module.exports = function(grunt) {
     wiredep: {
       build: {
         src: [
-          'build/**/*.html',   // .html support...
-          'build/styles/**/*.scss',   // .scss support...
+          '<%= config.app %>/**/*.html',   // .html support...
+          '<%= config.app %>/styles/**/*.scss',   // .scss support...
         ]
       }
     }
@@ -32,5 +43,5 @@ module.exports = function(grunt) {
   
   // Register Tasks
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'copy', 'wiredep']);
+  grunt.registerTask('default', ['clean', 'wiredep', 'copy']);
 };
