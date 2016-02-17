@@ -29,8 +29,7 @@ module.exports = function(grunt) {
         cwd: '<%= config.app %>',
         dest: '<%= config.build %>',
         src: [
-          '{,*/}*.html',
-          '{,*/}*.js'
+          '{,*/}*.html'
         ]
       }
     }, 
@@ -72,10 +71,24 @@ module.exports = function(grunt) {
       build: {
         src: '<%= config.build %>/{,*/}*.css'
       }
+    },
+    // Add Uglify Grunt task to compress JavaScript.
+    uglify: {
+      options: {
+        sourceMap: true
+      },
+      build: {
+         files: [{
+          expand: true,
+          cwd: '<%=config.app %>/scripts',
+          src: '**/*.js',
+          dest: '<%= config.build %>/scripts'
+        }]
+      }
     }
   });
   
   // Register Tasks
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'wiredep', 'sass', 'postcss', 'copy']);
+  grunt.registerTask('default', ['clean', 'wiredep', 'sass', 'postcss', 'uglify', 'copy']);
 };
