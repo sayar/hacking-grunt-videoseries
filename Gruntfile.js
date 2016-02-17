@@ -119,6 +119,27 @@ module.exports = function(grunt) {
         files: ['<%= config.app %>/scripts/{,*/}*.js'],
         tasks: ['uglify']
       }
+    },
+    // Add BrowserSync 
+    browserSync: {
+      build: {
+        bsFiles: {
+          src : [
+            '<%= config.build %>/{,*/}*.html',
+            '<%= config.build %>/styles/{,*/}*.css',            
+            '<%= config.build %>/scripts/{,*/}*.js'
+          ]
+        },
+        options: {
+          watchTask: true,
+          server: {
+            baseDir: ['<%= config.build %>'],
+            routes: {
+              '/bower_components': './bower_components'
+            }
+          }
+        }
+      }
     }
   });
   
@@ -127,5 +148,5 @@ module.exports = function(grunt) {
   grunt.registerTask('build', ['clean', 'wiredep', 'sass', 'postcss', 'uglify', 'htmlmin']);
 
   // Default task(s).
-  grunt.registerTask('default', ['watch']);
+  grunt.registerTask('default', ['build', 'browserSync', 'watch']);
 };
