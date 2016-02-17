@@ -59,10 +59,23 @@ module.exports = function(grunt) {
           ext: '.css'
         }]
       }
+    },
+    // Add PostCSS Grunt task and run autoprefixer & css minifier
+    postcss: {
+      options: {
+        map: true, // continue with sourcemaps
+        processors: [
+          require('autoprefixer')({browsers: 'last 2 versions'}), // autoprefix css 
+          require('cssnano')() // minify css
+        ]
+      },
+      build: {
+        src: '<%= config.build %>/{,*/}*.css'
+      }
     }
   });
   
   // Register Tasks
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'wiredep', 'sass', 'copy']);
+  grunt.registerTask('default', ['clean', 'wiredep', 'sass', 'postcss', 'copy']);
 };

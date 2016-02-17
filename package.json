@@ -3,9 +3,11 @@
   "description": "Hacking Grunt Video Series Project Repository",
   "version": "1.0.0",
   "devDependencies": {
+    "cssnano": "^3.5.2",
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.7.0",
     "grunt-contrib-copy": "^0.8.2",
+    "grunt-postcss": "^0.7.2",
     "grunt-sass": "^1.1.0",
     "grunt-wiredep": "^2.0.0",
     "jit-grunt": "^0.9.1",
