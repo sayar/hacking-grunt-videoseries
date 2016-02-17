@@ -32,7 +32,7 @@ module.exports = function(grunt) {
           '{,*/}*.html'
         ]
       }
-    }, 
+    },
     // Clean Task Configuration
     clean: ['build'],
     // Wire Dependencies
@@ -85,10 +85,25 @@ module.exports = function(grunt) {
           dest: '<%= config.build %>/scripts'
         }]
       }
+    }, 
+    // Add a HTML minifier
+    htmlmin: {
+      build: {
+        options: {
+          removeComments: true,
+          collapseWhitespace: true
+        },
+        files: [{
+          expand: true,
+          cwd: '<%=config.app %>/',
+          src: '**/*.html',
+          dest: '<%= config.build %>/'
+        }]
+      }
     }
   });
   
   // Register Tasks
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'wiredep', 'sass', 'postcss', 'uglify', 'copy']);
+  grunt.registerTask('default', ['clean', 'wiredep', 'sass', 'postcss', 'uglify', 'htmlmin']);
 };
