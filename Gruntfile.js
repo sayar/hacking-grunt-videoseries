@@ -100,10 +100,32 @@ module.exports = function(grunt) {
           dest: '<%= config.build %>/'
         }]
       }
+    },
+    // Watches files for changes and runs tasks based on the changed files
+    watch: {
+      bower: {
+        files: ['bower.json'],
+        tasks: ['wiredep', 'htmlmin']
+      },
+      styles: {
+        files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        tasks: ['sass', 'postcss']
+      }, 
+      html: {
+        files: ['<%= config.app %>/{,*/}*.html'],
+        tasks: ['htmlmin']
+      }, 
+      js: {
+        files: ['<%= config.app %>/scripts/{,*/}*.js'],
+        tasks: ['uglify']
+      }
     }
   });
   
   // Register Tasks
+  // Register build task chain
+  grunt.registerTask('build', ['clean', 'wiredep', 'sass', 'postcss', 'uglify', 'htmlmin']);
+
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'wiredep', 'sass', 'postcss', 'uglify', 'htmlmin']);
+  grunt.registerTask('default', ['watch']);
 };
